@@ -11,16 +11,16 @@ import kotlinx.coroutines.launch
 class LoginViewModel(
     private val loginUseCase: LoginUseCase
 ) : ViewModel() {
-    val onLogedIn: LiveData<UserModel> = com.sample.base_android.ActionLiveData()
-    val onError: LiveData<String> = com.sample.base_android.ActionLiveData()
+    val onLogedIn: LiveData<UserModel> = ActionLiveData()
+    val onError: LiveData<String> = ActionLiveData()
 
     fun logIn(email: String, password: String) {
         viewModelScope.launch {
             try {
                 val user = loginUseCase(email, password)
-                (onLogedIn as com.sample.base_android.ActionLiveData).sendAction(user)
+                (onLogedIn as ActionLiveData).sendAction(user)
             } catch (ex: Exception) {
-                (onError as com.sample.base_android.ActionLiveData).sendAction(ex.message ?: "Unknown Error")
+                (onError as ActionLiveData).sendAction(ex.message ?: "Unknown Error")
             }
         }
     }

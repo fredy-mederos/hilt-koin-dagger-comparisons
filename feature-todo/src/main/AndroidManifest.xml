@@ -1,5 +1,1 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.sample.feature_todo">
-
-    /
-</manifest>
+<manifest package="com.sample.feature_todo" />

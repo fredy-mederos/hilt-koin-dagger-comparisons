@@ -27,6 +27,7 @@ android {
 
 dependencies {
     implementation project(path: ':domain')
+    implementation project(path: ':base-android')
     implementation project(path: ':feature-login')
     implementation project(path: ':feature-todo')
 

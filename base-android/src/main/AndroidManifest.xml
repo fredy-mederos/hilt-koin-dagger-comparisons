@@ -1,5 +1,1 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.sample.base_android">
-
-    /
-</manifest>
+<manifest package="com.sample.base_android"/>
