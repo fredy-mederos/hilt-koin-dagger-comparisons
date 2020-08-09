@@ -1,10 +1,8 @@
 package com.sample.feature_todo.ui
 
+import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.sample.base_android.ActionLiveData
 import com.sample.domain.login.LogoutUseCase
 import com.sample.domain.todo.ToDoModel
@@ -13,7 +11,8 @@ import kotlinx.coroutines.launch
 
 class ToDosViewModel @ViewModelInject constructor(
     val getCurrentUserToDosUseCase: GetCurrentUserToDosUseCase,
-    val logoutUseCase: LogoutUseCase
+    val logoutUseCase: LogoutUseCase,
+    @Assisted private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
     val onLogout: LiveData<Unit> = ActionLiveData()

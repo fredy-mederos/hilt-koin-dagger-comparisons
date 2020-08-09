@@ -9,7 +9,7 @@
         android:id="@+id/loginFragment"
         android:name="com.sample.feature_login.ui.LoginFragment"
         android:label="LoginFragment"
-        tools:layout="@layout/login_fragment" >
+        tools:layout="@layout/login_fragment">
         <action
             android:id="@+id/action_loginFragment_to_toDosFragment"
             app:destination="@id/toDosFragment" />

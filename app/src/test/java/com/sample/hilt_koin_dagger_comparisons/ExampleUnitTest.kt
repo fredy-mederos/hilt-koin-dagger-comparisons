@@ -1,8 +1,7 @@
 package com.sample.hilt_koin_dagger_comparisons
 
+import org.junit.Assert.assertEquals
 import org.junit.Test
-
-import org.junit.Assert.*
 
 /**
  * Example local unit test, which will execute on the development machine (host).
