@@ -1,2 +1,6 @@
+include ':base-android'
+include ':feature-todo'
+include ':feature-login'
+include ':domain'
 include ':app'
 rootProject.name = "hilt-koin-dagger-comparisons"
