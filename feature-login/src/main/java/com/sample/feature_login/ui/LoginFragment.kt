@@ -4,13 +4,19 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.sample.feature_login.R
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.login_fragment.*
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class LoginFragment : Fragment(R.layout.login_fragment) {
 
-    lateinit var viewModel: LoginViewModel
+    val viewModel: LoginViewModel by viewModels()
+
+    @Inject
     lateinit var navigator: LoginNavigator
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

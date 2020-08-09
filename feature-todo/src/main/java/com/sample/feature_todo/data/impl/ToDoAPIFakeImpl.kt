@@ -4,8 +4,9 @@ import com.sample.feature_todo.data.ToDoAPI
 import com.sample.feature_todo.data.ToDoDTO
 import com.sample.feature_todo.data.ToDoStatusDTO
 import kotlinx.coroutines.delay
+import javax.inject.Inject
 
-class ToDoAPIFakeImpl : ToDoAPI {
+class ToDoAPIFakeImpl @Inject constructor() : ToDoAPI {
     override suspend fun getTodos(userId: String): List<ToDoDTO> {
         delay(2_000)
         return listOf(
