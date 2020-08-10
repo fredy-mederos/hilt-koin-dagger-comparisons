@@ -4,8 +4,9 @@ import com.sample.domain.login.GetCurrentUserUseCase
 import com.sample.domain.todo.GetToDosUseCase
 import com.sample.domain.todo.ToDoModel
 import com.sample.feature_todo.domain.GetCurrentUserToDosUseCase
+import javax.inject.Inject
 
-class GetCurrentUserToDosUseCaseImpl(
+class GetCurrentUserToDosUseCaseImpl @Inject constructor(
     val currentUserUseCase: GetCurrentUserUseCase,
     val getToDosUseCase: GetToDosUseCase
 ) : GetCurrentUserToDosUseCase {

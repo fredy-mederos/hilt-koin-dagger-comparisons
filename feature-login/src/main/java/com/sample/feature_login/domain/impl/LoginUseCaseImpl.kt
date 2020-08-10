@@ -6,8 +6,9 @@ import com.sample.feature_login.data.local.CurrentUserDAO
 import com.sample.feature_login.data.local.UserModelMapper
 import com.sample.feature_login.data.remote.UserModelRemoteMapper
 import com.sample.feature_login.data.remote.UserServicesAPI
+import javax.inject.Inject
 
-class LoginUseCaseImpl(
+class LoginUseCaseImpl @Inject constructor(
     val dao: CurrentUserDAO,
     val api: UserServicesAPI,
     val remoteMapper: UserModelRemoteMapper,

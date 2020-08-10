@@ -7,17 +7,33 @@ import android.view.MenuItem
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import com.sample.base_android.getComponentDependencies
 import com.sample.feature_todo.R
+import com.sample.feature_todo.di.DaggerTodoComponent
 import kotlinx.android.synthetic.main.fragment_todos.*
+import javax.inject.Inject
 
 class ToDosFragment : Fragment(R.layout.fragment_todos) {
 
+    @Inject
+    lateinit var viewModeFactory: ViewModelProvider.Factory
+
     lateinit var viewModel: ToDosViewModel
+
+    @Inject
     lateinit var navigator: ToDoListNavigator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
+
+
+        DaggerTodoComponent.builder().todoDependencies(getComponentDependencies()).build()
+            .inject(this)
+        viewModel =
+            ViewModelProvider(this, this.viewModeFactory).get(ToDosViewModel::class.java)
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

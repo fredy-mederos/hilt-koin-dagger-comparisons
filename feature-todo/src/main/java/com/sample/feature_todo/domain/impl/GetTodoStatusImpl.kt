@@ -5,8 +5,9 @@ import com.sample.domain.todo.GetTodoStatus
 import com.sample.domain.todo.ToDoStatus
 import com.sample.feature_todo.data.ToDoAPI
 import com.sample.feature_todo.data.ToDoStatusMapper
+import javax.inject.Inject
 
-class GetTodoStatusImpl(
+class GetTodoStatusImpl @Inject constructor(
     val api: ToDoAPI,
     val mapper: ToDoStatusMapper,
     val currentUserUseCase: GetCurrentUserUseCase

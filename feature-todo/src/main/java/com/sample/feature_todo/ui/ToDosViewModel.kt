@@ -9,8 +9,9 @@ import com.sample.domain.login.LogoutUseCase
 import com.sample.domain.todo.ToDoModel
 import com.sample.feature_todo.domain.GetCurrentUserToDosUseCase
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ToDosViewModel(
+class ToDosViewModel @Inject constructor(
     val getCurrentUserToDosUseCase: GetCurrentUserToDosUseCase,
     val logoutUseCase: LogoutUseCase
 ) : ViewModel() {

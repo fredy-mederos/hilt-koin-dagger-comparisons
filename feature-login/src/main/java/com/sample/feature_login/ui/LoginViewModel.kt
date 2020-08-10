@@ -7,8 +7,9 @@ import com.sample.domain.login.LoginUseCase
 import com.sample.domain.login.UserModel
 import com.sample.base_android.ActionLiveData
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class LoginViewModel(
+class LoginViewModel @Inject constructor(
     private val loginUseCase: LoginUseCase
 ) : ViewModel() {
     val onLogedIn: LiveData<UserModel> = ActionLiveData()

@@ -5,9 +5,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
+import com.sample.base_android.getComponentDependencies
 import com.sample.domain.todo.GetTodoStatus
 import com.sample.domain.todo.ToDoModel
 import com.sample.feature_todo.R
+import com.sample.feature_todo.di.DaggerTodoComponent
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_todo.*
 import kotlinx.coroutines.CoroutineScope
@@ -35,7 +37,8 @@ class ToDoAdapter(private val items: List<ToDoModel>) :
 class ToDoAdapterViewHolder(override val containerView: View) :
     RecyclerView.ViewHolder(containerView), LayoutContainer, CoroutineScope by MainScope() {
 
-    lateinit var getTodoStatus: GetTodoStatus
+    val getTodoStatus: GetTodoStatus = DaggerTodoComponent.builder()
+        .todoDependencies(containerView.context.getComponentDependencies()).build().getTodoStatus()
 
     fun bind(item: ToDoModel) {
         coroutineContext.cancelChildren()
@@ -51,7 +54,7 @@ class ToDoAdapterViewHolder(override val containerView: View) :
             statusText?.text = status.toString()
 
             progressBar?.isVisible = false
-            statusText?.isVisible = false
+            statusText?.isVisible = true
         }
     }
 }

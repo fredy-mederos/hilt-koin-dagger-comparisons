@@ -4,8 +4,9 @@ import com.sample.domain.login.GetCurrentUserUseCase
 import com.sample.domain.login.UserModel
 import com.sample.feature_login.data.local.CurrentUserDAO
 import com.sample.feature_login.data.local.UserModelMapper
+import javax.inject.Inject
 
-class GetCurrentUserUseCaseImpl(
+class GetCurrentUserUseCaseImpl @Inject constructor(
     val dao: CurrentUserDAO,
     val mapper: UserModelMapper
 ) : GetCurrentUserUseCase {

@@ -5,13 +5,30 @@ import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import com.sample.base_android.getComponentDependencies
 import com.sample.feature_login.R
+import com.sample.feature_login.di.DaggerLoginComponent
 import kotlinx.android.synthetic.main.login_fragment.*
+import javax.inject.Inject
 
 class LoginFragment : Fragment(R.layout.login_fragment) {
 
+    @Inject
+    lateinit var viewModeFactory: ViewModelProvider.Factory
+
     lateinit var viewModel: LoginViewModel
+
+    @Inject
     lateinit var navigator: LoginNavigator
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        DaggerLoginComponent.builder().loginDependencies(getComponentDependencies()).build()
+            .inject(this)
+        viewModel =
+            ViewModelProvider(this, this.viewModeFactory).get(LoginViewModel::class.java)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

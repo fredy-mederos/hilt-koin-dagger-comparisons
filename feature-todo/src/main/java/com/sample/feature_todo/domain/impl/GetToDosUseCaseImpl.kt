@@ -4,8 +4,9 @@ import com.sample.domain.todo.GetToDosUseCase
 import com.sample.domain.todo.ToDoModel
 import com.sample.feature_todo.data.ToDoAPI
 import com.sample.feature_todo.data.ToDoMapper
+import javax.inject.Inject
 
-class GetToDosUseCaseImpl(
+class GetToDosUseCaseImpl @Inject constructor(
     val api: ToDoAPI,
     val mapper: ToDoMapper
 ) : GetToDosUseCase {
