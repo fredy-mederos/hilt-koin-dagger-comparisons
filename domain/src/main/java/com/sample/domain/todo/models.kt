@@ -5,3 +5,9 @@ class ToDoModel(
     val title: String,
     val body: String
 )
+
+enum class ToDoStatus{
+    DRAFT,
+    DONE,
+    UNKNOWN
+}

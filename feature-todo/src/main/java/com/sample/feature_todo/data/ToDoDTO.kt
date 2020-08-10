@@ -5,3 +5,5 @@ class ToDoDTO(
     val title: String,
     val body: String
 )
+
+class ToDoStatusDTO(val value: Int)
