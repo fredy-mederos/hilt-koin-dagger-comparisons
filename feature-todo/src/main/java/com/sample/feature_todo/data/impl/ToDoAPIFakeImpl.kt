@@ -20,15 +20,23 @@ class ToDoAPIFakeImpl : ToDoAPI {
             ToDoDTO("9", "Todo9", "This is the todo 9"),
             ToDoDTO("10", "Todo10", "This is the todo 10"),
             ToDoDTO("11", "Todo11", "This is the todo 11"),
-            ToDoDTO("12", "Todo12", "This is the todo 12")
+            ToDoDTO("12", "Todo12", "This is the todo 12"),
+            ToDoDTO("13", "Todo13", "This is the todo 13"),
+            ToDoDTO("14", "Todo14", "This is the todo 14"),
+            ToDoDTO("15", "Todo15", "This is the todo 15"),
+            ToDoDTO("16", "Todo16", "This is the todo 16"),
+            ToDoDTO("17", "Todo17", "This is the todo 17"),
+            ToDoDTO("18", "Todo18", "This is the todo 18"),
+            ToDoDTO("19", "Todo19", "This is the todo 19"),
+            ToDoDTO("20", "Todo20", "This is the todo 20")
         )
     }
 
     override suspend fun getTodoStatus(userId: String, todoId: String): ToDoStatusDTO {
-        delay(2_000)
+        delay(1_000)
         return when (todoId) {
-            "1", "2", "12", "11" -> ToDoStatusDTO(0)
-            "3", "6", "0" -> ToDoStatusDTO(1)
+            "1", "2", "12", "11", "20" -> ToDoStatusDTO(0)
+            "3", "6", "0", "19" -> ToDoStatusDTO(1)
             else -> ToDoStatusDTO(-1)
         }
     }
