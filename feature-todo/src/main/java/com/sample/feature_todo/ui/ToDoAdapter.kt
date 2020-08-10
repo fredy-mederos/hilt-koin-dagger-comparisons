@@ -3,11 +3,16 @@ package com.sample.feature_todo.ui
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.sample.domain.todo.GetTodoStatus
 import com.sample.domain.todo.ToDoModel
 import com.sample.feature_todo.R
+import com.sample.feature_todo.di.ViewHoldersEntryPoint
+import dagger.hilt.android.EntryPointAccessors
+import dagger.hilt.android.internal.managers.ViewComponentManager
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_todo.*
 import kotlinx.coroutines.CoroutineScope
@@ -35,7 +40,18 @@ class ToDoAdapter(private val items: List<ToDoModel>) :
 class ToDoAdapterViewHolder(override val containerView: View) :
     RecyclerView.ViewHolder(containerView), LayoutContainer, CoroutineScope by MainScope() {
 
-    lateinit var getTodoStatus: GetTodoStatus
+    fun getActivity(): FragmentActivity? {
+        return when (val cntx = containerView.context) {
+            is AppCompatActivity -> cntx
+            is ViewComponentManager.FragmentContextWrapper -> cntx.fragment?.activity
+            else -> null
+        }
+    }
+
+    val getTodoStatus: GetTodoStatus = EntryPointAccessors.fromActivity(
+        getActivity() ?: error("No activity ${containerView.context}"),
+        ViewHoldersEntryPoint::class.java
+    ).getTodoStatus()
 
     fun bind(item: ToDoModel) {
         coroutineContext.cancelChildren()
@@ -51,7 +67,7 @@ class ToDoAdapterViewHolder(override val containerView: View) :
             statusText?.text = status.toString()
 
             progressBar?.isVisible = false
-            statusText?.isVisible = false
+            statusText?.isVisible = true
         }
     }
 }

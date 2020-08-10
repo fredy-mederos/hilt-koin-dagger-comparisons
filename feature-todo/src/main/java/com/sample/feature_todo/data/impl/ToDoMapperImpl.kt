@@ -14,7 +14,7 @@ class ToDoMapperImpl @Inject constructor() : ToDoMapper {
     }
 }
 
-class ToDoStatusMapperImpl : ToDoStatusMapper {
+class ToDoStatusMapperImpl @Inject constructor() : ToDoStatusMapper {
     override fun transform(dto: ToDoStatusDTO): ToDoStatus {
         return when (dto.value) {
             0 -> ToDoStatus.DONE
