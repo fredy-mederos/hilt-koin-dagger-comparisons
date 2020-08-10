@@ -14,6 +14,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.cancelChildren
 import kotlinx.coroutines.launch
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 
 class ToDoAdapter(private val items: List<ToDoModel>) :
     RecyclerView.Adapter<ToDoAdapterViewHolder>() {
@@ -33,9 +35,10 @@ class ToDoAdapter(private val items: List<ToDoModel>) :
 }
 
 class ToDoAdapterViewHolder(override val containerView: View) :
-    RecyclerView.ViewHolder(containerView), LayoutContainer, CoroutineScope by MainScope() {
+    RecyclerView.ViewHolder(containerView), LayoutContainer, CoroutineScope by MainScope(),
+    KoinComponent {
 
-    lateinit var getTodoStatus: GetTodoStatus
+    val getTodoStatus: GetTodoStatus by inject()
 
     fun bind(item: ToDoModel) {
         coroutineContext.cancelChildren()
@@ -51,7 +54,7 @@ class ToDoAdapterViewHolder(override val containerView: View) :
             statusText?.text = status.toString()
 
             progressBar?.isVisible = false
-            statusText?.isVisible = false
+            statusText?.isVisible = true
         }
     }
 }
