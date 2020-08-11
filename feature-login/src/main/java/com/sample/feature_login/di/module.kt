@@ -2,6 +2,7 @@ package com.sample.feature_login.di
 
 import androidx.lifecycle.ViewModel
 import com.sample.base_android.ComponentDependencies
+import com.sample.base_android.FragmentScope
 import com.sample.base_android.ViewModelFactoryModule
 import com.sample.base_android.ViewModelKey
 import com.sample.domain.login.GetCurrentUserUseCase
@@ -25,14 +26,13 @@ import dagger.Binds
 import dagger.Component
 import dagger.Module
 import dagger.multibindings.IntoMap
-import javax.inject.Singleton
 
 interface LoginDependencies : ComponentDependencies {
     fun loginNavigator(): LoginNavigator
     fun currentUserDAO(): CurrentUserDAO
 }
 
-@Singleton
+@FragmentScope
 @Component(
     modules = [LoginModule::class, ViewModelFactoryModule::class],
     dependencies = [LoginDependencies::class]

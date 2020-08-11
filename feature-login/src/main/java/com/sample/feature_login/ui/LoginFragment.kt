@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.sample.base_android.getComponentDependencies
 import com.sample.feature_login.R
 import com.sample.feature_login.di.DaggerLoginComponent
+import com.sample.feature_login.di.LoginComponent
 import kotlinx.android.synthetic.main.login_fragment.*
 import javax.inject.Inject
 
@@ -22,12 +23,20 @@ class LoginFragment : Fragment(R.layout.login_fragment) {
     @Inject
     lateinit var navigator: LoginNavigator
 
+    var scopedComponent: LoginComponent? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        DaggerLoginComponent.builder().loginDependencies(getComponentDependencies()).build()
-            .inject(this)
+        scopedComponent =
+            DaggerLoginComponent.builder().loginDependencies(getComponentDependencies()).build()
+        scopedComponent?.inject(this)
         viewModel =
             ViewModelProvider(this, this.viewModeFactory).get(LoginViewModel::class.java)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        scopedComponent = null
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
