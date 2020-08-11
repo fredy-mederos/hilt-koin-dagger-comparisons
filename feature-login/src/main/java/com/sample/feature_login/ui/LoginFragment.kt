@@ -8,12 +8,13 @@ import androidx.lifecycle.Observer
 import com.sample.feature_login.R
 import kotlinx.android.synthetic.main.login_fragment.*
 import org.koin.android.ext.android.inject
+import org.koin.androidx.scope.lifecycleScope
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LoginFragment : Fragment(R.layout.login_fragment) {
 
     val viewModel: LoginViewModel by viewModel()
-    val navigator: LoginNavigator by inject()
+    val navigator: LoginNavigator by lifecycleScope.inject()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

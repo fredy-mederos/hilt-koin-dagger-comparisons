@@ -10,11 +10,12 @@ import androidx.lifecycle.Observer
 import com.sample.feature_todo.R
 import kotlinx.android.synthetic.main.fragment_todos.*
 import org.koin.android.ext.android.inject
+import org.koin.androidx.scope.lifecycleScope
 
 class ToDosFragment : Fragment(R.layout.fragment_todos) {
 
     val viewModel: ToDosViewModel by inject()
-    val navigator: ToDoListNavigator by inject()
+    val navigator: ToDoListNavigator by lifecycleScope.inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
