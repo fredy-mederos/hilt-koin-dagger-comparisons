@@ -7,14 +7,17 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.FragmentComponent
+import dagger.hilt.android.scopes.FragmentScoped
 
 @Module
 @InstallIn(FragmentComponent::class)
 abstract class BindModule {
 
     @Binds
+    @FragmentScoped
     abstract fun bindLoginNavigator(impl: Navigator): LoginNavigator
 
     @Binds
+    @FragmentScoped
     abstract fun bindTodoListNavigator(impl: Navigator): ToDoListNavigator
 }
