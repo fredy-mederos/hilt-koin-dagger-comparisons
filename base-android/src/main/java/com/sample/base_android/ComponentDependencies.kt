@@ -10,18 +10,20 @@ import androidx.fragment.app.Fragment
 interface ComponentDependencies
 
 interface ComponentDependenciesProvider {
-    val dependencies: ComponentDependencies
+    val dependencies: List<ComponentDependencies>
 }
 
-fun <COMPONENT : ComponentDependencies> View.getComponentDependencies(): COMPONENT = context.getComponentDependencies()
+inline fun <reified COMPONENT : ComponentDependencies> View.getComponentDependencies(): COMPONENT =
+    context.getComponentDependencies()
 
-fun <COMPONENT : ComponentDependencies> Fragment.getComponentDependencies(): COMPONENT = requireContext().getComponentDependencies()
+inline fun <reified COMPONENT : ComponentDependencies> Fragment.getComponentDependencies(): COMPONENT =
+    requireContext().getComponentDependencies()
 
-fun <COMPONENT : ComponentDependencies> Context.getComponentDependencies(): COMPONENT {
+inline fun <reified COMPONENT : ComponentDependencies> Context.getComponentDependencies(): COMPONENT {
     check(applicationContext is ComponentDependenciesProvider) { "App class must implement CoreComponentProvider" }
     val component = (applicationContext as ComponentDependenciesProvider).dependencies
     return try {
-        component as COMPONENT
+        component.first { it is COMPONENT } as COMPONENT
     } catch (ex: Throwable) {
         error("The app provided component is not an instance of desired one")
     }

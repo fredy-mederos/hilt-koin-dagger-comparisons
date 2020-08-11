@@ -38,7 +38,10 @@ class ToDoAdapterViewHolder(override val containerView: View) :
     RecyclerView.ViewHolder(containerView), LayoutContainer, CoroutineScope by MainScope() {
 
     val getTodoStatus: GetTodoStatus = DaggerTodoComponent.builder()
-        .todoDependencies(containerView.context.getComponentDependencies()).build().getTodoStatus()
+        .todoDependencies(containerView.context.getComponentDependencies())
+        .todoNavigationDependencies(containerView.context.getComponentDependencies())
+        .build()
+        .getTodoStatus()
 
     fun bind(item: ToDoModel) {
         coroutineContext.cancelChildren()

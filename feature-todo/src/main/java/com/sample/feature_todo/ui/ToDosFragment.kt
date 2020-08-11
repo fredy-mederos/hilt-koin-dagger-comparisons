@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.sample.base_android.getComponentDependencies
 import com.sample.feature_todo.R
 import com.sample.feature_todo.di.DaggerTodoComponent
+import com.sample.feature_todo.di.TodoComponent
 import kotlinx.android.synthetic.main.fragment_todos.*
 import javax.inject.Inject
 
@@ -24,15 +25,19 @@ class ToDosFragment : Fragment(R.layout.fragment_todos) {
     @Inject
     lateinit var navigator: ToDoListNavigator
 
+    var scopedComponent: TodoComponent? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
 
 
-        DaggerTodoComponent.builder().todoDependencies(getComponentDependencies()).build()
-            .inject(this)
-        viewModel =
-            ViewModelProvider(this, this.viewModeFactory).get(ToDosViewModel::class.java)
+        scopedComponent = DaggerTodoComponent.builder()
+            .todoDependencies(getComponentDependencies())
+            .todoNavigationDependencies(getComponentDependencies())
+            .build()
+        scopedComponent?.inject(this)
+        viewModel = ViewModelProvider(this, this.viewModeFactory).get(ToDosViewModel::class.java)
 
     }
 

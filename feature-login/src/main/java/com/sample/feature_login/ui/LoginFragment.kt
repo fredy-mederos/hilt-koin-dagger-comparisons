@@ -28,7 +28,10 @@ class LoginFragment : Fragment(R.layout.login_fragment) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         scopedComponent =
-            DaggerLoginComponent.builder().loginDependencies(getComponentDependencies()).build()
+            DaggerLoginComponent.builder()
+                .loginDependencies(getComponentDependencies())
+                .loginNavigationDependencies(getComponentDependencies())
+                .build()
         scopedComponent?.inject(this)
         viewModel =
             ViewModelProvider(this, this.viewModeFactory).get(LoginViewModel::class.java)

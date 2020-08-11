@@ -2,10 +2,10 @@ package com.sample.feature_todo.di
 
 import androidx.lifecycle.ViewModel
 import com.sample.base_android.ComponentDependencies
+import com.sample.base_android.FragmentScope
 import com.sample.base_android.ViewModelFactoryModule
 import com.sample.base_android.ViewModelKey
 import com.sample.domain.login.GetCurrentUserUseCase
-import com.sample.domain.login.LoginUseCase
 import com.sample.domain.login.LogoutUseCase
 import com.sample.domain.todo.GetToDosUseCase
 import com.sample.domain.todo.GetTodoStatus
@@ -26,18 +26,20 @@ import dagger.Binds
 import dagger.Component
 import dagger.Module
 import dagger.multibindings.IntoMap
-import javax.inject.Singleton
 
 interface TodoDependencies : ComponentDependencies {
-    fun todoNavigator(): ToDoListNavigator
     fun logoutUseCase(): LogoutUseCase
     fun currentUser(): GetCurrentUserUseCase
 }
 
-@Singleton
+interface TodoNavigationDependencies : ComponentDependencies {
+    fun todoNavigator(): ToDoListNavigator
+}
+
+@FragmentScope
 @Component(
     modules = [TodoModule::class, ViewModelFactoryModule::class],
-    dependencies = [TodoDependencies::class]
+    dependencies = [TodoDependencies::class, TodoNavigationDependencies::class]
 )
 interface TodoComponent {
     fun inject(fragment: ToDosFragment)

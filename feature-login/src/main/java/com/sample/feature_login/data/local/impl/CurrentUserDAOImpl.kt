@@ -5,7 +5,6 @@ import com.sample.feature_login.data.local.UserModelDTO
 import javax.inject.Inject
 import javax.inject.Singleton
 
-@Singleton
 class CurrentUserDAOInMemoryImpl @Inject constructor() : CurrentUserDAO {
 
     var currentUser: UserModelDTO? = null

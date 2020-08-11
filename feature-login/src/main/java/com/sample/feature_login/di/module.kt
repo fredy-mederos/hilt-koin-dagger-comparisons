@@ -26,16 +26,26 @@ import dagger.Binds
 import dagger.Component
 import dagger.Module
 import dagger.multibindings.IntoMap
+import javax.inject.Singleton
 
 interface LoginDependencies : ComponentDependencies {
-    fun loginNavigator(): LoginNavigator
     fun currentUserDAO(): CurrentUserDAO
+}
+
+interface LoginNavigationDependencies : ComponentDependencies {
+    fun loginNavigator(): LoginNavigator
 }
 
 @FragmentScope
 @Component(
-    modules = [LoginModule::class, ViewModelFactoryModule::class],
-    dependencies = [LoginDependencies::class]
+    modules = [
+        LoginModule::class,
+        ViewModelFactoryModule::class
+    ],
+    dependencies = [
+        LoginDependencies::class,
+        LoginNavigationDependencies::class
+    ]
 )
 interface LoginComponent {
     fun inject(loginFragment: LoginFragment)
@@ -45,6 +55,7 @@ interface LoginComponent {
 abstract class CurrentUserDaoModule {
 
     @Binds
+    @Singleton
     abstract fun bindCurrentUserDao(impl: CurrentUserDAOInMemoryImpl): CurrentUserDAO
 }
 
